@@ -3,10 +3,8 @@ package com.wangzunbin.day03.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import com.wangzunbin.day01._05_smis.domain.Student;
 import com.wangzunbin.day03.dao.IStudentDAO;
@@ -35,31 +33,9 @@ public class StudentDAOImpl implements IStudentDAO {
 	}
 
 	public Student get(Long id) {
-		Student student = new Student();
 		String sql = "select * from t_student where id = ?";
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			// 2. 获取连接对象
-			conn = JdbcUtil.getConn();
-			// 3.创建语句对象
-			ps = conn.prepareStatement(sql);
-			ps.setLong(1, id);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				student.setAge(rs.getInt("age"));
-				student.setId(rs.getLong("id"));
-				student.setName(rs.getString("name"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-
-			JdbcUtil.close(conn, ps, rs);
-
-		}
-		return student;
+		List<Student> list = JdbcTemplate.query(sql, new StudentResultSetHandler(), id);
+		return list.size() == 1? list.get(0):null;
 	}
 
 	public List<Student> list() {

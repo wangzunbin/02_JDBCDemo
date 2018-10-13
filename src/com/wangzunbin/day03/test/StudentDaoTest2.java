@@ -1,11 +1,12 @@
 package com.wangzunbin.day03.test;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.wangzunbin.day01._05_smis.domain.Student;
 import com.wangzunbin.day03.dao.IStudentDAO;
 import com.wangzunbin.day03.dao.impl.StudentDAOImpl;
-import com.wangzunbin.util.JdbcTemplate;
 
 /**
  * 重构
@@ -36,5 +37,18 @@ public class StudentDaoTest2 {
 		student.setAge(19);
 		student.setName("盖伦kj");
 		dao.update(17L, student);
+	}
+	
+	@Test
+	public void querySingle() {
+		IStudentDAO dao = new StudentDAOImpl();
+		Student stu = dao.get(10L);
+		System.out.println(stu.toString());
+	}
+	
+	@Test
+	public void queryAll() {
+		IStudentDAO dao = new StudentDAOImpl();
+		List<Student> list = dao.list();
 	}
 }
