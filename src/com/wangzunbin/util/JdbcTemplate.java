@@ -3,8 +3,10 @@ package com.wangzunbin.util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import com.wangzunbin.day03.dao.IResultSetHandler;
+import com.wangzunbin.day03.template.BeanListHandler;
 
 public class JdbcTemplate {
 	
@@ -42,7 +44,7 @@ public class JdbcTemplate {
 			ps = conn.prepareStatement(sql);
 			// 设置占位符参数
 			for (int i = 0; i < params.length; i++) {
-				ps.setObject(i, params[i]);
+				ps.setObject(i+1, params[i]);
 			}
 			rs = ps.executeQuery();
 			return rsh.handle(rs);

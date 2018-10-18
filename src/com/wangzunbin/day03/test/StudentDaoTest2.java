@@ -7,6 +7,9 @@ import org.junit.Test;
 import com.wangzunbin.day01._05_smis.domain.Student;
 import com.wangzunbin.day03.dao.IStudentDAO;
 import com.wangzunbin.day03.dao.impl.StudentDAOImpl;
+import com.wangzunbin.day03.template.BeanListHandler;
+import com.wangzunbin.day03.template.HibernateTemplate;
+import com.wangzunbin.util.JdbcTemplate;
 
 /**
  * 重构
@@ -42,7 +45,7 @@ public class StudentDaoTest2 {
 	@Test
 	public void querySingle() {
 		IStudentDAO dao = new StudentDAOImpl();
-		Student stu = dao.get(10L);
+		Student stu = dao.get(19613L);
 		System.out.println(stu.toString());
 	}
 	
@@ -50,5 +53,11 @@ public class StudentDaoTest2 {
 	public void queryAll() {
 		IStudentDAO dao = new StudentDAOImpl();
 		List<Student> list = dao.list();
+		System.out.println(list.toString());
 	}
+	
+	/*@Test
+	public void saveStuForHibernate() throws Exception {
+		System.out.println(JdbcTemplate.query("SELECT * FROM t_student", new BeanListHandler<>(Student.class)));;
+	}*/
 }
